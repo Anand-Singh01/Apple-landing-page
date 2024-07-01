@@ -5,7 +5,7 @@ import { chipImg, frameImg, frameVideo } from '../utils'
 
 const HowItWorks = () => {
 
-    const videoRef = useRef();
+    const videoRef = useRef(null);
 
     useGSAP(() => {
         gsap.fromTo('#chip', {
@@ -34,6 +34,17 @@ const HowItWorks = () => {
                 toggleActions: 'restart reverse restart reverse'
             }
         })
+
+        gsap.to(videoRef.current, {
+            scrollTrigger: {
+                trigger: videoRef.current,
+                start: 'top bottom',
+                toggleActions: 'play pause reverse restart'
+            },
+            onComplete: () => {
+                videoRef.current.play();
+            }
+        })
     }, [])
 
     return (
@@ -58,7 +69,7 @@ const HowItWorks = () => {
                             <img src={frameImg} alt="frame" className='bg-transparent relative z-10' />
                         </div>
                         <div className='hiw-video'>
-                            <video ref={videoRef} className='pointer-events-none' playsInline preload='none' muted autoPlay src={frameVideo} type='video/mp4' />
+                            <video ref={videoRef} className='pointer-events-none' muted playsInline={true} src={frameVideo} type='video/mp4' />
                         </div>
                     </div>
                     <p className='text-gray font-semibold text-center mt-3'>Honkai: Star Rail</p>
