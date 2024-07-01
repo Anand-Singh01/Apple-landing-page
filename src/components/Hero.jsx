@@ -1,9 +1,10 @@
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { heroVideo, smallHeroVideo } from '../utils';
 const Hero = () => {
 
+  const videoRef = useRef(null);
   const [videoSrc, setVideoSrc] = useState(window.innerWidth < 760 ? smallHeroVideo : heroVideo);
 
 
@@ -32,6 +33,17 @@ const Hero = () => {
       delay: 2,
       opacity: 1
     })
+
+    gsap.to(videoRef.current, {
+      scrollTrigger: {
+        start: 'bottom',
+        trigger: videoRef.current,
+        toggleActions: 'play pause reverse restart'
+      },
+      onComplete: () => {
+        videoRef.current.play();
+      }
+    })
   }, [])
 
   return (
@@ -39,10 +51,9 @@ const Hero = () => {
       <div className='h-5/6 flex flex-col items-center'>
         <p className='hero-title'> iPhone 15 Pro</p>
         <div className='md:w-10/12 w-9/12'>
-          <video className='pointer-events-none' muted autoPlay playsInline={true} key={videoSrc} type="video/mp4" src={videoSrc}></video>
+          <video ref={videoRef} className='pointer-events-none' muted autoPlay playsInline={true} key={videoSrc} type="video/mp4" src={videoSrc}></video>
         </div>
       </div>
-
       <div id='cta' className='flex flex-col items-center opacity-0 translate-y-20'>
         <a className='btn' href="#highlights">Buy</a>
         <p className='font-normal text-xl'>From $199/month or $999</p>
