@@ -57,7 +57,7 @@ const HowItWorks = () => {
                     <h2 className='hiw-title'>
                         A17 Pro Chip
                         <br />
-                        A monster win fromgaming.
+                        A monster win pro gaming.
                     </h2>
                     <p className='hiw-subtitle'>
                         It's here. The biggest redesign in the history of Apple GPUs.
