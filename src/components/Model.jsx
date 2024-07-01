@@ -2,11 +2,12 @@ import { useGSAP } from "@gsap/react"
 import { View } from "@react-three/drei"
 import { Canvas } from "@react-three/fiber"
 import gsap from "gsap"
-import { useEffect, useRef, useState } from "react"
+import { Suspense, useEffect, useRef, useState } from "react"
 import * as THREE from 'three'
 import { models, sizes } from "../constants"
 import { yellowImg } from "../utils"
 import { animateWithGsapTimeline } from "../utils/animations"
+import Loader from "./Loader"
 import ModelView from "./ModelView"
 
 const Model = () => {
@@ -70,33 +71,36 @@ const Model = () => {
                 </h1>
                 <div className="flex flex-col items-center mt-5">
                     <div className="w-full h-[75vh] md:h-[90vh] relative">
-                        <ModelView
-                            index={1}
-                            groupRef={small}
-                            gsapType='view1'
-                            controlRef={cameraControlSmall}
-                            setRotationState={setSmallRotation}
-                            item={model}
-                            size={size}
-                        />
+                        <Suspense fallback={<div><Loader /></div>}>
+                            <ModelView
+                                index={1}
+                                groupRef={small}
+                                gsapType='view1'
+                                controlRef={cameraControlSmall}
+                                setRotationState={setSmallRotation}
+                                item={model}
+                                size={size}
+                            />
 
-                        <ModelView
-                            index={2}
-                            groupRef={large}
-                            gsapType='view2'
-                            controlRef={cameraControlLarge}
-                            setRotationState={setLargeRotation}
-                            item={model}
-                            size={size}
-                        />
+                            <ModelView
+                                index={2}
+                                groupRef={large}
+                                gsapType='view2'
+                                controlRef={cameraControlLarge}
+                                setRotationState={setLargeRotation}
+                                item={model}
+                                size={size}
+                            />
 
-                        <Canvas
-                            style={{ position: 'fixed', top: 0, bottom: 0, left: 0, right: 0, overflow: 'hidden' }}
-                            eventSource={document.getElementById('root')}
-                            className="w-full h-full"
-                        >
-                            <View.Port />
-                        </Canvas>
+                            <Canvas
+                                style={{ position: 'fixed', top: 0, bottom: 0, left: 0, right: 0, overflow: 'hidden' }}
+                                eventSource={document.getElementById('root')}
+                                className="w-full h-full"
+                            >
+                                <View.Port />
+                            </Canvas>
+                        </Suspense>
+
                     </div>
                     <div className="mx-auto w-full">
                         <p className="text-sm font-light text-center mb-5">
