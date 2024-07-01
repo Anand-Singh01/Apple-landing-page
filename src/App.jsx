@@ -1,10 +1,12 @@
-import Hero from './components/Hero';
-import Highlights from './components/Highlights';
-import Model from './components/Model';
-import Navbar from './components/Navbar';
-import Features from './components/Features'
 import gsap from 'gsap';
 import ScrollTrigger from "gsap/ScrollTrigger";
+import Features from './components/Features';
+import Footer from './components/Footer';
+import Hero from './components/Hero';
+import Highlights from './components/Highlights';
+import HowItWorks from './components/HowItWorks';
+import Model from './components/Model';
+import Navbar from './components/Navbar';
 
 gsap.registerPlugin(ScrollTrigger);
 const App = () => {
@@ -15,6 +17,8 @@ const App = () => {
       <Highlights />
       <Model />
       <Features />
+      <HowItWorks/>
+      <Footer/>
     </h1>
   )
 }
